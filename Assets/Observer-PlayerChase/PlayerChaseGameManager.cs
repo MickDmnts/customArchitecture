@@ -28,12 +28,9 @@ public class PlayerChaseGameManager : MonoBehaviour
     {
         totalTime += Time.deltaTime;
 
-        if((totalTime % 1) <= 1f)
+        foreach (ITimeUpdateObserver observer in timeFinishedObservers)
         {
-            foreach (ITimeUpdateObserver observer in timeFinishedObservers)
-            {
-                observer.OnTimeUpdate(totalTime);
-            }
+            observer.OnTimeUpdate(totalTime);
         }
 
         if (totalTime > stageTime) 
