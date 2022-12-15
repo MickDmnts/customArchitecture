@@ -1,18 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System.Text;
 
-public class UIManager : MonoBehaviour
+public class UIManager : MonoBehaviour,
+    ITimeUpdateObserver
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// The text displaying the time in the UI.
+    /// </summary>
+    [SerializeField,Tooltip("The text displaying the time in the UI.")] TextMeshProUGUI timeText;
+
+    StringBuilder sb = new StringBuilder();
+
+    private void Start()
     {
-        
+        PlayerChaseGameManager.GetGameManager().AddTimeUpdateObserver(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnTimeUpdate(float time)
     {
-        
+        sb.Clear();
+
+        sb.Append("Time: ");
+        sb.Append(time);
+        timeText.SetText(sb.ToString());
+    }
+
+    private void OnDestroy()
+    {
+        PlayerChaseGameManager.GetGameManager().RemoveTimeUpdateObserver(this);
     }
 }

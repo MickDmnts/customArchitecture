@@ -1,5 +1,4 @@
-﻿
-public interface IStageFinishedObserver {
-
+﻿public interface IStageFinishedObserver 
+{
     public void OnStageFinished();
 }
